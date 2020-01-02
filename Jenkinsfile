@@ -6,7 +6,16 @@ def owner= "${env.owner}"
 
 node ("${env.SLAVE}") {
     stage ('Checkout') {
-        checkout scm
+        checkout ([
+            $class: 'GitSCM',
+            branches: [[name: "refs/${env.BUILD}"]],
+            extensions: [
+                [$class: 'PathRestriction', excludedRegions: '', includedRegions: 'OAS3.0/*.yaml'],
+                [$class: 'DisableRemotePoll']
+            ],
+            submoduleCfg: [],
+            userRemoteConfigs: [[url: "${env.REPO}", credentialsId: "${env.GIT_KEY}"]]
+        ])
     }
     stage ('Post document to SwaggerHub'){
         script {
