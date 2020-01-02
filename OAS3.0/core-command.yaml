@@ -230,6 +230,12 @@ paths:
       responses:
         200:
           description: The service's API version as JSON document
+  /cherrytest:
+    get:
+      description: Get the API version
+      responses:
+        200:
+          description: The service's API version as JSON document
 components:
   schemas:
     addressable:
