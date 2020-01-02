@@ -28,9 +28,13 @@ node ("${env.SLAVE}") {
         }
     }
     stage ('Post document to SwaggerHub'){
-        when { expression { changeDetected }}
         script {
-            sh 'sh toSwaggerHub.sh $apiKey $apiVersion $oasVersion $isPrivate $owner'
+            if (changeDetected == true) {
+                sh 'sh toSwaggerHub.sh $apiKey $apiVersion $oasVersion $isPrivate $owner'
+            } else {
+                echo "API Files didn't change, sync stop!"
+            }
+            
         }
     }
 }
