@@ -10,7 +10,7 @@ node ("${env.SLAVE}") {
             $class: 'GitSCM',
             branches: [[name: "refs/${env.BUILD}"]],
             extensions: [
-                [$class: 'PathRestriction', excludedRegions: '', includedRegions: 'OAS3.0/*.yaml'],
+                [$class: 'PathRestriction', excludedRegions: '', includedRegions: 'OAS3.0/.*\.yaml'],
                 [$class: 'DisableRemotePoll']
             ],
             submoduleCfg: [],
