@@ -25,11 +25,12 @@ node ("${env.SLAVE}") {
         script {
             loadGlobalLibrary()
             changeDetected = edgex.didChange('^OAS3.0/')
+            echo "changeDetected:" + changeDetected
         }
     }
     stage ('Post document to SwaggerHub'){
         script {
-            if (changeDetected == 'true') {
+            if (changeDetected == "true") {
                 sh 'sh toSwaggerHub.sh $apiKey $apiVersion $oasVersion $isPrivate $owner'
             } else {
                 echo "API Files didn't change, sync stop!"
