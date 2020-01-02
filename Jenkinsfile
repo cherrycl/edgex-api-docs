@@ -5,6 +5,8 @@ def isPrivate= "${env.isPrivate}"
 def owner= "${env.owner}"
 def changeDetected
 
+
+
 node ("${env.SLAVE}") {
     stage ('Checkout') {
         checkout ([
@@ -21,6 +23,7 @@ node ("${env.SLAVE}") {
 
     stage ('Check files changed or not'){
         script {
+            loadGlobalLibrary()
             changeDetected = edgex.didChange('^OAS3.0/')
         }
     }
